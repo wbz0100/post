@@ -8,7 +8,7 @@ const HUNT_B = [2919,2920,2921,2922,2923,2924,2925,2926,2927,2928,2929,2930,2931
       serverRgx   = /^[ㄱ-힣]+ 서버로 이동했습니다\./im,
 
       serverList = [0, 'dev', 2075, '초코보', 2076, '초코보', 2077, '모그리', 2078, '톤베리', 2079, '캐트시', 2080, '펜리르', 2081, '오메가']
-      gas = 'https://script.google.com/macros/s/AKfycbydkrzujYeu-MeK7eZ7RFvrGVUEtHdZ7Hu8TrOYNFF9o7fCcs6w_FV-ACKdfevMb6aX/exec'
+      gas = 'https://script.google.com/macros/s/AKfycbzf4qe5N_v3FoUsGr1edi1dtTlp7uOKbd5brKgBsioEXy1SlwL1pc2V4rsrVjXNQ5KQ/exec'
 
 let HuntsArr = {}
 
