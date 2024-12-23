@@ -7,7 +7,7 @@ const HUNT_B = [2919,2920,2921,2922,2923,2924,2925,2926,2927,2928,2929,2930,2931
       insIconRgx  = /[]/im,
       serverRgx   = /^[ㄱ-힣]+ 서버로 이동했습니다\./im,
 
-      serverList = {0: 'dev', 2075: '초코보', 2076: '초코보', 2077: '모그리', 2078: '톤베리', 2079: '캐트시' , 2080: '펜리르' , 2081: '오메가'}
+      serverList = [0, 'dev', 2075, '초코보', 2076, '초코보', 2077, '모그리', 2078, '톤베리', 2079, '캐트시', 2080, '펜리르', 2081, '오메가']
       gas = 'https://script.google.com/macros/s/AKfycbylENZwo2ExWU2tjlc16aj80QjmQCLDPsmJTpaaRlajBcxT-4mbtuL2YcodxW76kHk7/exec'
 
 let HuntsArr = {}
@@ -47,6 +47,7 @@ let myId = null,
                     }
                     if(serverRgx.test(str)) {
                         currWorld = str.split(' ')[0]
+                        currWorldid = serverList[serverList.indexOf(currWorld) - 1]
                         console.log(`[${hour}:${minute}] 서버가 변경되었습니다. 현재 서버: ${currWorld}`)
                     }
                 break
@@ -85,8 +86,8 @@ let myId = null,
             maxHp       = parseInt(logLine[12])
 
             if(myId === entityid && homeWorldid == 0) {
-                homeWorldid = Worldid
-                homeWorld = serverList[homeWorldid]
+                homeWorldid = Number(Worldid)
+                homeWorld = serverList[serverList.indexOf(homeWorldid) + 1]
                 console.log(`[${hour}:${minute}] 고향 서버가 인식되었습니다. (고향 서버: ${homeWorld})`)
             }
 
