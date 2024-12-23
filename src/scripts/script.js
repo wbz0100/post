@@ -8,7 +8,7 @@ const HUNT_B = [2919,2920,2921,2922,2923,2924,2925,2926,2927,2928,2929,2930,2931
       serverRgx   = /^[ㄱ-힣]+ 서버로 이동했습니다\./im,
 
       serverList = [0, 'dev', 2075, '초코보', 2076, '초코보', 2077, '모그리', 2078, '톤베리', 2079, '캐트시', 2080, '펜리르', 2081, '오메가']
-      gas = 'https://script.google.com/macros/s/AKfycbzf4qe5N_v3FoUsGr1edi1dtTlp7uOKbd5brKgBsioEXy1SlwL1pc2V4rsrVjXNQ5KQ/exec'
+      url = 'https://script.google.com/macros/s/AKfycbyC6xDUIwSoitnTNhSePsc4VxnDkI5YMjq5zeQRpmvKeSSSAVpXEE6BsqVmdWTdUBI/exec'
 
 let HuntsArr = {}
 
@@ -149,7 +149,8 @@ addHunts = () => {
 
 removeHunts = () => {
     if(HuntsArr.hasOwnProperty(entityid) && currHp === 0) {
-        postHunts(entityid)
+        //postHunts(entityid)
+        callDoPost(entityid)
         targetid = entityid
         targetname = HuntsArr[entityid].entityName
         console.log(`[${hour}:${minute}] ${targetid}(${targetname})을/를 배열에서 삭제합니다.`)
@@ -186,27 +187,55 @@ insSearch = (e) => {
     }
 }
 
-postHunts = (e) => {
-    if( myId !== null && myName !== null && homeWorldid !== 0 && currWorldid !== 0 && ins !== 0 && e !== null ) {
-        console.log(`[${hour}:${minute}] Post 시도 중...`)
-        $.ajax({
-            type: "GET",
-            url: gas,
-            data: {
-                'id'         : myId,
-                'name'       : myName,
-                'homeWorldid': homeWorldid,
-                'currWorldid': currWorldid,
-                'ins'        : ins,
-                'entityid'   : e,
-                'bnpcNameId' : HuntsArr[e].bnpcNameId,
-                'dateValue'  : HuntsArr[e].dateValue
-            },
-            success: function(response){console.log("susccess")},
-            error: function(xhr, status, error) {console.log("Error: " + error)}
-        })
-        console.log(`[${hour}:${minute}] Post 완료`)
+// postHunts = (e) => {
+//     if( myId !== null && myName !== null && homeWorldid !== 0 && currWorldid !== 0 && ins !== 0 && e !== null ) {
+//         console.log(`[${hour}:${minute}] Post 시도 중...`)
+//         $.ajax({
+//             type: "GET",
+//             url: gas,
+//             data: {
+//                 'id'         : myId,
+//                 'name'       : myName,
+//                 'homeWorldid': homeWorldid,
+//                 'currWorldid': currWorldid,
+//                 'ins'        : ins,
+//                 'entityid'   : e,
+//                 'bnpcNameId' : HuntsArr[e].bnpcNameId,
+//                 'dateValue'  : HuntsArr[e].dateValue
+//             },
+//             success: function(response){console.log("susccess")},
+//             error: function(xhr, status, error) {console.log("Error: " + error)}
+//         })
+//         console.log(`[${hour}:${minute}] Post 완료`)
+//     }
+// }
+
+const callDoPost =(e)=> {
+    // 구글 앱 스크립트에서 배포한 웹 애플리케이션의 URL 설정
+    var url = "https://script.google.com/macros/s/${your-script-id}/exec";
+   
+    // POST 요청에 보낼 데이터 설정
+    var formData = {
+        'id'         : myId,
+        'name'       : myName,
+        'homeWorldid': homeWorldid,
+        'currWorldid': currWorldid,
+        'ins'        : ins,
+        'entityid'   : e,
+        'bnpcNameId' : HuntsArr[e].bnpcNameId,
+        'dateValue'  : HuntsArr[e].dateValue
     }
+   
+    // fetch를 사용하여 POST 요청 보내기
+    fetch(url, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(formData)
+    })
+      .then(response => response.json())
+      .then(data     => {console.log("Response from server:", data);})
+      .catch(error   => {console.error("Error:", error);});
 }
+
 addOverlayListener('LogLine', catchLogs);
 startOverlayEvents();
