@@ -187,6 +187,7 @@ insSearch = (e) => {
 
 postHunts = (e) => {
     if( myId !== null && myName !== null && homeWorldid !== 0 && currWorldid !== 0 && ins !== 0 && e !== null ) {
+        console.log(`[${hour}:${minute}] Post 시도 중...`)
         $.ajax({
             type: "GET",
             url: gas,
@@ -203,6 +204,7 @@ postHunts = (e) => {
             success: function(response){console.log("susccess")},
             error: function(xhr, status, error) {console.log("Error: " + error)}
         })
+        console.log(`[${hour}:${minute}] Post 완료`)
     }
 }
 addOverlayListener('LogLine', catchLogs);
