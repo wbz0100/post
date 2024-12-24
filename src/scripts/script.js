@@ -5,7 +5,7 @@ const HUNT_B = [2919,2920,2921,2922,2923,2924,2925,2926,2927,2928,2929,2930,2931
       settingRgx  = /(?:.*?)(?:은|는) 존재하지 않는 명령어입니다\./im,
       instanceRgx = /^(인스턴스 지역 )(?:.*?)[](?:으로|로) 이동했습니다\./im,
       insIconRgx  = /[]/im,
-      serverRgx   = /^[ㄱ-힣]+ 서버로 이동했습니다\./im,
+      serverRgx   = /(?:.*?) 서버로 이동했습니다\./im,
 
       serverList = [0, 'dev', 2075, '초코보', 2076, '초코보', 2077, '모그리', 2078, '톤베리', 2079, '캐트시', 2080, '펜리르', 2081, '오메가']
       url = 'https://script.google.com/macros/s/AKfycbyC6xDUIwSoitnTNhSePsc4VxnDkI5YMjq5zeQRpmvKeSSSAVpXEE6BsqVmdWTdUBI/exec'
@@ -48,7 +48,6 @@ let myId = null,
                     if(serverRgx.test(str)) {
                         currWorld = str.split(' ')[0]
                         currWorldid = serverList[serverList.indexOf(currWorld) - 1]
-                        console.log(`[${hour}:${minute}] 서버가 변경되었습니다. 현재 서버: ${currWorld}`)
                     }
                 break
             }
@@ -88,7 +87,6 @@ let myId = null,
             if(myId === entityid && homeWorldid == 0) {
                 homeWorldid = Number(Worldid)
                 homeWorld = serverList[serverList.indexOf(homeWorldid) + 1]
-                console.log(`[${hour}:${minute}] 고향 서버가 인식되었습니다. (고향 서버: ${homeWorld})`)
             }
 
             addHunts()
@@ -139,11 +137,7 @@ timeSplit = (e) => {
 
 addHunts = () => {
     if((HUNT_B.includes(bnpcNameId) || HUNT_A.includes(bnpcNameId) || HUNT_S.includes(bnpcNameId)) && currHp > 0) {
-        HuntsArr.hasOwnProperty(entityid) ||
-        (
-            HuntsArr[entityid] = {entityName, bnpcNameId, currHp, maxHp, dateValue},
-            console.log(`[${hour}:${minute}] ${entityid}(${HuntsArr[entityid].entityName})이/가 배열에 추가됐습니다. 현재 배열에 저장된 개수: ${Object.keys(HuntsArr).length}`)
-        )
+        HuntsArr[entityid] = {entityName, bnpcNameId, currHp, maxHp, dateValue}
     }
 }
 
@@ -155,11 +149,7 @@ removeHunts = () => {
         }
         targetid = entityid
         targetname = HuntsArr[entityid].entityName
-        console.log(`[${hour}:${minute}] ${targetid}(${targetname})을/를 배열에서 삭제합니다.`)
         delete HuntsArr[entityid]
-        console.log(`[${hour}:${minute}] ${targetid}(${targetname})을/를 배열에서 삭제했습니다. 현재 배열에 저장된 개수: ${Object.keys(HuntsArr).length}`)
-        targetid = null
-        targetname = null
     }
 }
 
