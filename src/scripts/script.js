@@ -149,8 +149,10 @@ addHunts = () => {
 
 removeHunts = () => {
     if(HuntsArr.hasOwnProperty(entityid) && currHp === 0) {
-        //postHunts(entityid)
-        callDoPost(entityid)
+        if( myId !== null && myName !== null && homeWorldid !== 0 && currWorldid !== 0 && ins !== 0 && e !== null ) {
+            //postHunts(entityid)
+            callDoPost(entityid)
+        }
         targetid = entityid
         targetname = HuntsArr[entityid].entityName
         console.log(`[${hour}:${minute}] ${targetid}(${targetname})을/를 배열에서 삭제합니다.`)
@@ -187,35 +189,28 @@ insSearch = (e) => {
     }
 }
 
-// postHunts = (e) => {
-//     if( myId !== null && myName !== null && homeWorldid !== 0 && currWorldid !== 0 && ins !== 0 && e !== null ) {
-//         console.log(`[${hour}:${minute}] Post 시도 중...`)
-//         $.ajax({
-//             type: "GET",
-//             url: gas,
-//             data: {
-//                 'id'         : myId,
-//                 'name'       : myName,
-//                 'homeWorldid': homeWorldid,
-//                 'currWorldid': currWorldid,
-//                 'ins'        : ins,
-//                 'entityid'   : e,
-//                 'bnpcNameId' : HuntsArr[e].bnpcNameId,
-//                 'dateValue'  : HuntsArr[e].dateValue
-//             },
-//             success: function(response){console.log("susccess")},
-//             error: function(xhr, status, error) {console.log("Error: " + error)}
-//         })
-//         console.log(`[${hour}:${minute}] Post 완료`)
-//     }
-// }
+const ajaxPostHunts = (e) => {
+    $.ajax({
+        type: "POST",
+        url: gas,
+        data: {
+            'id'         : myId,
+            'name'       : myName,
+            'homeWorldid': homeWorldid,
+            'currWorldid': currWorldid,
+            'ins'        : ins,
+            'entityid'   : e,
+            'bnpcNameId' : HuntsArr[e].bnpcNameId,
+            'dateValue'  : HuntsArr[e].dateValue
+        },
+        success: function(response){console.log("susccess")},
+        error: function(xhr, status, error) {console.log("Error: " + error)}
+    })
+    
+}
 
-const callDoPost =(e)=> {
-    // 구글 앱 스크립트에서 배포한 웹 애플리케이션의 URL 설정
-    var url = "https://script.google.com/macros/s/${your-script-id}/exec";
-   
-    // POST 요청에 보낼 데이터 설정
-    var formData = {
+const fetchPostHunts =(e)=> {
+    let formData = {
         'id'         : myId,
         'name'       : myName,
         'homeWorldid': homeWorldid,
@@ -225,8 +220,6 @@ const callDoPost =(e)=> {
         'bnpcNameId' : HuntsArr[e].bnpcNameId,
         'dateValue'  : HuntsArr[e].dateValue
     }
-   
-    // fetch를 사용하여 POST 요청 보내기
     fetch(url, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -238,4 +231,4 @@ const callDoPost =(e)=> {
 }
 
 addOverlayListener('LogLine', catchLogs);
-startOverlayEvents();
+startOverlayEvents();SSZ
