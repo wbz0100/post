@@ -7,7 +7,7 @@ const HUNT_B = [2919,2920,2921,2922,2923,2924,2925,2926,2927,2928,2929,2930,2931
       insIconRgx  = /[]/im,
       serverRgx   = /(?:.*?) 서버로 이동했습니다\./im,
 
-      serverList = [0, 'dev', 2075, '초코보', 2076, '초코보', 2077, '모그리', 2078, '톤베리', 2079, '캐트시', 2080, '펜리르', 2081, '오메가']
+      serverList = [0, 'dev', 2075, '초코보', 2076, '초코보', 2077, '모그리', 2078, '톤베리', 2079, '캐트시', 2080, '펜리르', 2081, '오메가'],
       url = 'https://script.google.com/macros/s/AKfycbyC6xDUIwSoitnTNhSePsc4VxnDkI5YMjq5zeQRpmvKeSSSAVpXEE6BsqVmdWTdUBI/exec'
 
 let HuntsArr = {}
