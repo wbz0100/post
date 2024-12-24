@@ -28,6 +28,7 @@ let myId = null,
     dbgMode = 1
 
  catchLogs = (data) => {
+    
     const log = data
     const logLine = data.line
     const rawLine = data.rawLine
